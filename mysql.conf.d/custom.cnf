@@ -1,0 +1,6 @@
+[mysqld]
+server-id = 15
+sql_mode = ''
+long_query_time = 5
+slow_query_log = 1
+log_output = FILE

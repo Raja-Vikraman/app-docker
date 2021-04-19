@@ -1,0 +1,29 @@
+volumes:
+  grm-app:
+    name: grm-app
+services:
+  php:
+    container_name: grm-php7-fpm
+    build: ./app
+    volumes:
+    - grm-app:/grm
+    links:
+    - mysql
+  web:
+    container_name: grm-nginx
+    image: nginx:latest
+    ports:
+    - 8080:80
+    volumes:
+    - ./app/nginx/conf.d:/etc/nginx/conf.d
+    links:
+    - php
+  mysql:
+    image: mysql:5.7
+    container_name: grm-mysql
+    ports:
+    - 6601:3306
+    volumes:
+    - ./app/mysql/mysql.conf.d:/etc/mysql/conf.d
+    environment:
+      MYSQL_ROOT_PASSWORD: infi
